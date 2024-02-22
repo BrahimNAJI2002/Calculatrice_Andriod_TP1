@@ -8,71 +8,73 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
+
 import org.mariuszgromada.math.mxparser.Expression;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView smallResultTextView, mainResultTextView;
-    MaterialButton clearButton, openBracketButton, closeBracketButton;
-    MaterialButton divideButton, multiplyButton, addButton, subtractButton, equalsButton;
-    MaterialButton zeroButton, oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton, sevenButton, eightButton, nineButton;
-    MaterialButton factorialButton, sqrtButton, powerButton, logButton, naturalLogButton, sinButton, cosButton, tanButton, piButton, eButton, ansButton, inverseButton, radButton, degButton;
-    MaterialButton allClearButton, dotButton;
+    TextView resultTv, solutionTv;
+    MaterialButton buttonC, buttonBrackOpen, buttonBrackClose;
+    MaterialButton buttonDiv, buttonMult, buttonPlus, buttonMin, buttonEq;
+    MaterialButton button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
+    MaterialButton buttonFac, buttonSqrt, buttonPow, buttonLog, buttonLn, buttonSin, buttonCos, buttonTan,buttonPi, buttonE, buttonAns, buttonInv, buttonRad,buttonDeg;
+    MaterialButton buttonAC, buttonDot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         {
-            smallResultTextView = findViewById(R.id.result_small);
-            mainResultTextView = findViewById(R.id.result_tv);
+            resultTv = findViewById(R.id.result_small);
+            solutionTv = findViewById(R.id.result_tv);
 
-            assignId(clearButton, R.id.button_c);
-            assignId(openBracketButton, R.id.button_open_bracket);
-            assignId(closeBracketButton, R.id.button_closed_bracket);
-            assignId(divideButton, R.id.button_div);
-            assignId(multiplyButton, R.id.button_mult);
-            assignId(addButton, R.id.button_plus);
-            assignId(subtractButton, R.id.button_min);
-            assignId(equalsButton, R.id.button_eq);
+            assignId(buttonC, R.id.button_c);
+            assignId(buttonBrackOpen, R.id.button_open_bracket);
+            assignId(buttonBrackClose, R.id.button_closed_bracket);
+            assignId(buttonDiv, R.id.button_div);
+            assignId(buttonMult, R.id.button_mult);
+            assignId(buttonPlus, R.id.button_plus);
+            assignId(buttonMin, R.id.button_min);
+            assignId(buttonEq, R.id.button_eq);
 
-            assignId(allClearButton, R.id.button_ac);
-            assignId(dotButton, R.id.button_dot);
+            assignId(buttonAC, R.id.button_ac);
+            assignId(buttonDot, R.id.button_dot);
 
-            assignId(zeroButton, R.id.button_0);
-            assignId(oneButton, R.id.button_1);
-            assignId(twoButton, R.id.button_2);
-            assignId(threeButton, R.id.button_3);
-            assignId(fourButton, R.id.button_4);
-            assignId(fiveButton, R.id.button_5);
-            assignId(sixButton, R.id.button_6);
-            assignId(sevenButton, R.id.button_7);
-            assignId(eightButton, R.id.button_8);
-            assignId(nineButton, R.id.button_9);
+            assignId(button0, R.id.button_0);
+            assignId(button1, R.id.button_1);
+            assignId(button2, R.id.button_2);
+            assignId(button3, R.id.button_3);
+            assignId(button4, R.id.button_4);
+            assignId(button5, R.id.button_5);
+            assignId(button6, R.id.button_6);
+            assignId(button7, R.id.button_7);
+            assignId(button8, R.id.button_8);
+            assignId(button9, R.id.button_9);
 
             //Test if orientation changed
             if (savedInstanceState != null) {
-                assignId(sqrtButton, R.id.button_sqrt);
-                assignId(factorialButton, R.id.button_fac);
-                assignId(powerButton, R.id.button_pow);
-                assignId(logButton, R.id.button_log);
-                assignId(naturalLogButton, R.id.button_ln);
-                assignId(sinButton, R.id.button_sin);
-                assignId(cosButton, R.id.button_cos);
-                assignId(tanButton, R.id.button_tan);
-                assignId(piButton, R.id.button_pi);
-                assignId(eButton, R.id.button_e);
-                assignId(ansButton, R.id.button_ans);
-                assignId(inverseButton, R.id.button_inv);
-                assignId(radButton, R.id.button_rad);
-                assignId(degButton, R.id.button_deg);
+                assignId(buttonSqrt, R.id.button_sqrt);
+                assignId(buttonFac, R.id.button_fac);
+                assignId(buttonPow, R.id.button_pow);
+                assignId(buttonLog, R.id.button_log);
+                assignId(buttonLn, R.id.button_ln);
+                assignId(buttonSin, R.id.button_sin);
+                assignId(buttonCos, R.id.button_cos);
+                assignId(buttonTan, R.id.button_tan);
+                assignId(buttonPi, R.id.button_pi);
+                assignId(buttonE, R.id.button_e);
+                assignId(buttonAns, R.id.button_ans);
+                assignId(buttonInv, R.id.button_inv);
+                assignId(buttonRad, R.id.button_rad);
+                assignId(buttonDeg, R.id.button_deg);
             }
         }//Assigning Ids block
         if (savedInstanceState != null) {
             String solution = savedInstanceState.getString("solution");
-            mainResultTextView.setText(solution);
+            solutionTv.setText(solution);
             String result = savedInstanceState.getString("result");
-            smallResultTextView.setText(result);
+            resultTv.setText(result);
             savedInstanceState.clear();
         }
     }
@@ -80,39 +82,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("solution", mainResultTextView.getText().toString());
-        outState.putString("result", smallResultTextView.getText().toString());
+        outState.putString("solution", solutionTv.getText().toString());
+        outState.putString("result", resultTv.getText().toString());
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        String solution = savedInstanceState.getString("solution");
-        mainResultTextView.setText(solution);
-        String result = savedInstanceState.getString("result");
-        smallResultTextView.setText(result);
+        savedInstanceState.getString("solution");
+        savedInstanceState.getString("result");
     }
 
-    void assignId(MaterialButton button, int id) {
-        button = findViewById(id);
-        button.setOnClickListener(this);
+    void assignId(MaterialButton btn, int id) {
+        btn = findViewById(id);
+        btn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         MaterialButton button = (MaterialButton) view;
         String buttonText = button.getText().toString();
-        String dataToCalculate = mainResultTextView.getText().toString();
+        String dataToCalculate = solutionTv.getText().toString();
 
         if (dataToCalculate.startsWith("0")) dataToCalculate = dataToCalculate.substring(1);
 
         if (buttonText.equals("AC")) {
-            mainResultTextView.setText("");
-            smallResultTextView.setText("0");
+            solutionTv.setText("");
+            resultTv.setText("0");
             return;
         }
         if (buttonText.equals("=")) {
-            mainResultTextView.setText(smallResultTextView.getText());
+            solutionTv.setText(resultTv.getText());
             return;
         }
         if (buttonText.equals("C")) {
@@ -175,16 +175,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             dataToCalculate = dataToCalculate + "rad(";
         }
 
-        mainResultTextView.setText(dataToCalculate);
+        solutionTv.setText(dataToCalculate);
         System.out.println(dataToCalculate);
 
         String finalResult = getResult(dataToCalculate);
         if (!finalResult.equals("NaN")) {
-            smallResultTextView.setText(finalResult);
+            resultTv.setText(finalResult);
         }
     }
 
     String getResult(String data) {
+        //boolean test = Pattern.matches("^[-+]?[0-9]*\\.?[0-9]+([-+*/]?([0-9]*\\.?[0-9]+))*$", data);
         try {
             if (data.endsWith("+") || data.endsWith("-") || data.endsWith("*") || data.endsWith("/")) {
                 data = data.substring(0, data.length() - 1);
@@ -204,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             Expression expression = new Expression(data);
             Double finalResult = expression.calculate();
+
             return finalResult.toString();
 
         } catch (Exception e) {
